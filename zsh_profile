@@ -1,0 +1,76 @@
+alias zsh.edit='cd $HOME && nvim .zsh_profile'
+alias zsh.reload='source ~/.zsh_profile'
+alias zsh.new='cd && curl https://raw.githubusercontent.com/hed0n1st/boost-my-termux/master/zsh_profile --output new.zsh_profile && rm -f ~/.zsh_profile && cat new.zsh_profile >> ~/.zsh_profile && rm -f new.zsh_profile && zsh.reload'
+
+# -- termux specific
+alias tmx.update='pkg upgrade'
+alias tmx.reload='termux-reload-settings'
+
+# -- linux deploy
+function ld.conf() { tsu -c "/data/data/ru.meefik.linuxdeploy/bin/linuxdeploy config"; }
+function ld.start() { tsu -c "/data/data/ru.meefik.linuxdeploy/bin/linuxdeploy -p $1 start -m"; }
+function ld.stop() { tsu -c "/data/data/ru.meefik.linuxdeploy/bin/linuxdeploy -p $1 stop -u"; }
+function ld.ssh() { ssh android@192.168.1.14; }
+
+# -- various aliases
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# -- interpreters/env
+alias py='python'
+
+# -- git commands
+alias gi='git init'
+alias ga='git add'
+alias gc='git commit -m'
+alias gs='git status'
+alias gd='git diff'
+alias gf='git fetch'
+alias gm='git merge'
+alias gr='git rebase'
+alias gp='git push'
+alias gu='git unstage'
+alias gco='git checkout'
+
+# -- functions
+function mkcd() { mkdir -p "$1" && cd "$1"; }
+function exec.url() { bash -c "$(curl -fsSL $1)"; }
+function d.url() { curl -fsLO "$1"; }
+function ka() { killall "$1"; }
+
+function extract {
+ if [ -z "$1" ]; then
+    # display usage if no parameters given
+    echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+    echo "       extract <path/file_name_1.ext> [path/file_name_2.ext] [path/file_name_3.ext]"
+    return 1
+ else
+    for n in $@
+    do
+      if [ -f "$n" ] ; then
+          case "${n%,}" in
+            *.tar.bz2|*.tar.gz|*.tar.xz|*.tbz2|*.tgz|*.txz|*.tar) 
+                         tar xvf "$n"       ;;
+            *.lzma)      unlzma ./"$n"      ;;
+            *.bz2)       bunzip2 ./"$n"     ;;
+            *.rar)       unrar x -ad ./"$n" ;;
+            *.gz)        gunzip ./"$n"      ;;
+            *.zip)       unzip ./"$n"       ;;
+            *.z)         uncompress ./"$n"  ;;
+            *.7z|*.arj|*.cab|*.chm|*.deb|*.dmg|*.iso|*.lzh|*.msi|*.rpm|*.udf|*.wim|*.xar)
+                         7z x ./"$n"        ;;
+            *.xz)        unxz ./"$n"        ;;
+            *.exe)       cabextract ./"$n"  ;;
+            *)
+                         echo "extract: '$n' - unknown archive method"
+                         return 1
+                         ;;
+          esac
+      else
+          echo "'$n' - file does not exist"
+          return 1
+      fi
+    done
+fi
+}
