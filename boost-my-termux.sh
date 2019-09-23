@@ -47,14 +47,6 @@ sleep 2
 rm -rf ~/.boost-my-termux && cd
 
 clear
-echo -e "\033[34m[x]Installing root packages repository\033[0m"
-
-apt-key adv --keyserver keyserver.ubuntu.com --recv A46BE53C
-mkdir -p $PREFIX/etc/apt/sources.list.d
-echo "deb [trusted=yes] https://grimler.se root stable" > $PREFIX/etc/apt/sources.list.d/termux-root.list
-apt update
-
-clear
 echo -e "\033[34m[x]Installing oh-my-zsh and oh-my-bash\033[0m"
 
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
