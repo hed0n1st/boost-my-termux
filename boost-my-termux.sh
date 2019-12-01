@@ -77,12 +77,12 @@ echo -e "\033[34m[x]Installing personal packages and tools\033[0m"
 FDROID_REPO='https://f-droid.org/repo/'
 HOME='/data/data/com.termux/files/home/'
 APK_LIST=(
-            com.termux.api_34.apk
-            com.termux.boot_6.apk
+            com.termux.api_38.apk
+            com.termux.boot_7.apk
             com.termux.styling_25.apk
             com.termux.tasker_3.apk
             com.termux.widget_11.apk
-            com.termux.window_11.apk
+            com.termux.window_13.apk
          )
 
 for f in ${APK_LIST[@]}
