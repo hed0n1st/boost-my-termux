@@ -6,7 +6,7 @@ echo -e "\033[34m[x]pkg update, upgrade and installation\033[0m"
 PKG_LIST=(
             termux-am termux-api termux-apt-repo termux-create-package termux-elf-cleaner termux-tools termux-exec tsu
             zsh htop
-            ncurses ncurses-utils coreutils findutils apr apr-util dirmngr
+            ncurses ncurses-utils coreutils findutils apr gnupg
             autoconf bison clang
             git openssh
             net-tools dnsutils
@@ -19,7 +19,7 @@ PKG_LIST=(
          )
 
 apt update && apt upgrade -y
-pkg install -y "${PKG_LIST[@]}"
+apt install -y "${PKG_LIST[@]}"
 
 clear
 echo -e "\033[34m[x]Installing profiles and sudo\033[0m"
